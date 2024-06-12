@@ -1,4 +1,4 @@
-# MERN E-Commerce Backend!
+# MERN E-Commerce Frontend!
 
 Hi! I am Dev Shah. I have developed this frontend of an E-Commerce App using MERN stack.
 
@@ -20,3 +20,5 @@ VITE_MESSAGING_SENDER_ID=`from firebase`
 VITE_APP_ID=`from firebase`
 VITE_SERVER=`Your Backend Server URl`
 VITE_STRIPE_KEY=`Stripe Publishable Key`
+
+Backend Code Link: https://github.com/devshah23/mern-ecommerce-backend
