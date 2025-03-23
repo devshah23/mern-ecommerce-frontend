@@ -2,6 +2,7 @@ import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { server } from "../redux/store";
 import { CartItem as CartItemTypes } from "../types/types";
+import { Card, Flex, Image } from "antd";
 
 type CartItemProps = {
   cartItem: CartItemTypes;
@@ -19,21 +20,42 @@ const CartItem = ({
 }: CartItemProps) => {
   const { photo, productId, price, quantity, name } = cartItem;
   return (
-    <div className="cart-item">
-      <img src={`${server}/${photo}`} alt={name} />
-      <article>
-        <Link to={`/product/${productId}`}>{name}</Link>
-        <span>₹{price}</span>
-      </article>
-      <div>
-        <button onClick={() => decrementHandler(cartItem)}>-</button>
-        <p>{quantity}</p>
-        <button onClick={() => incrementHandler(cartItem)}>+</button>
-      </div>
-      <button onClick={() => removeHandler(productId)}>
-        <FaTrash />
-      </button>
-    </div>
+    // <div className="cart-item">
+    //   <img src={`${server}/${photo}`} alt={name} />
+    //   <article>
+    //     <Link to={`/product/${productId}`}>{name}</Link>
+    //     <span>₹{price}</span>
+    //   </article>
+    //   <div>
+    //     <button onClick={() => decrementHandler(cartItem)}>-</button>
+    //     <p>{quantity}</p>
+    //     <button onClick={() => incrementHandler(cartItem)}>+</button>
+    //   </div>
+    //   <button onClick={() => removeHandler(productId)}>
+    //     <FaTrash />
+    //   </button>
+    // </div>
+    <>
+      <Card>
+        <Flex>
+          <Image src={photo} alt={name} preview={false} />
+          <Flex>
+            <article>
+              <Link to={`/product/${productId}`}>{name}</Link>
+              <span>₹{price}</span>
+            </article>
+            <div>
+              <button onClick={() => decrementHandler(cartItem)}>-</button>
+              <p>{quantity}</p>
+              <button onClick={() => incrementHandler(cartItem)}>+</button>
+            </div>
+            <button onClick={() => removeHandler(productId)}>
+              <FaTrash />
+            </button>
+          </Flex>
+        </Flex>
+      </Card>
+    </>
   );
 };
 

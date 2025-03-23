@@ -1,8 +1,14 @@
+import { Flex, Spin } from "antd";
+
 const Loader = () => {
   return (
-    <section className="loader">
-      <div></div>
-    </section>
+    <Flex
+      align="center"
+      gap="middle"
+      style={{ height: "100vh" }}
+      justify="center">
+      <Spin size="large" />
+    </Flex>
   );
 };
 interface SkeletonProps {
