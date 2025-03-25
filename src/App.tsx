@@ -191,77 +191,68 @@ const App = () => {
     <Loader />
   ) : (
     <Router>
-      <Layout style={{ height: "100vh" }}>
-        <Navbar user={user} />
+      <Navbar user={user} />
+      <Layout style={{ height: "100vh", gap: "2rem" }}>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/cart" element={<Cart />} />
 
-        <Content
-          style={{
-            width: "87%",
-            marginInline: "auto",
-            height: "100%",
-            paddingTop: "80px",
-          }}>
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/cart" element={<Cart />} />
+            {/* Not Logged In User Routes */}
+            <Route
+              path="/login"
+              element={
+                <ProtectedRoute isAuthenticated={!user}>
+                  <Login />
+                </ProtectedRoute>
+              }
+            />
 
-              {/* Not Logged In User Routes */}
+            {/* Logged In User Routes */}
+            <Route element={<ProtectedRoute isAuthenticated={!!user} />}>
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/order/:id" element={<OrderDetails />} />
+              <Route path="/pay" element={<Checkout />} />
+            </Route>
+
+            {/* Admin Routes */}
+            <Route
+              element={
+                <ProtectedRoute
+                  isAuthenticated={true}
+                  adminOnly={true}
+                  admin={user?.role === "admin"}
+                />
+              }>
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/product" element={<Products />} />
+              <Route path="/admin/customer" element={<Customers />} />
+              <Route path="/admin/transaction" element={<Transaction />} />
+              {/* Charts */}
+              <Route path="/admin/chart/bar" element={<Barcharts />} />
+              <Route path="/admin/chart/pie" element={<Piecharts />} />
+              <Route path="/admin/chart/line" element={<Linecharts />} />
+              {/* Apps */}
+              <Route path="/admin/app/coupon" element={<Coupon />} />
+              <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
+              <Route path="/admin/app/toss" element={<Toss />} />
+              {/* Management */}
+              <Route path="/admin/product/new" element={<NewProduct />} />
               <Route
-                path="/login"
-                element={
-                  <ProtectedRoute isAuthenticated={!user}>
-                    <Login />
-                  </ProtectedRoute>
-                }
+                path="/admin/product/:id"
+                element={<ProductManagement />}
               />
-
-              {/* Logged In User Routes */}
-              <Route element={<ProtectedRoute isAuthenticated={!!user} />}>
-                <Route path="/shipping" element={<Shipping />} />
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/order/:id" element={<OrderDetails />} />
-                <Route path="/pay" element={<Checkout />} />
-              </Route>
-
-              {/* Admin Routes */}
               <Route
-                element={
-                  <ProtectedRoute
-                    isAuthenticated={true}
-                    adminOnly={true}
-                    admin={user?.role === "admin"}
-                  />
-                }>
-                <Route path="/admin/dashboard" element={<Dashboard />} />
-                <Route path="/admin/product" element={<Products />} />
-                <Route path="/admin/customer" element={<Customers />} />
-                <Route path="/admin/transaction" element={<Transaction />} />
-                {/* Charts */}
-                <Route path="/admin/chart/bar" element={<Barcharts />} />
-                <Route path="/admin/chart/pie" element={<Piecharts />} />
-                <Route path="/admin/chart/line" element={<Linecharts />} />
-                {/* Apps */}
-                <Route path="/admin/app/coupon" element={<Coupon />} />
-                <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
-                <Route path="/admin/app/toss" element={<Toss />} />
-                {/* Management */}
-                <Route path="/admin/product/new" element={<NewProduct />} />
-                <Route
-                  path="/admin/product/:id"
-                  element={<ProductManagement />}
-                />
-                <Route
-                  path="/admin/transaction/:id"
-                  element={<TransactionManagement />}
-                />
-              </Route>
+                path="/admin/transaction/:id"
+                element={<TransactionManagement />}
+              />
+            </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </Content>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
 
         <Toaster position="top-center" />
       </Layout>

@@ -6,6 +6,7 @@ import { CartItem } from "../types/types";
 import toast from "react-hot-toast";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
+import { Content } from "antd/es/layout/layout";
 
 // const Home = () => {
 //   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ import { useLatestProductsQuery } from "../redux/api/productAPI";
 const { Title } = Typography;
 const products = [
   {
-    id: 1,
+    id: "65f0a1b2c3d4e5f678901234",
     name: "Wireless Headphones",
     price: 59,
     stock: 0,
@@ -76,16 +77,15 @@ const products = [
       "https://m.media-amazon.com/images/G/31/img17/kitchen/Cookware-megaSN-380x500._V509389810_.jpg",
   },
   {
-    id: 2,
+    id: "65f0a1b2c3d4e5f678901235",
     name: "Rudy's Shampoo",
     price: 99,
     stock: 20,
     photo:
       "https://images.wondershare.com/pixcut/assets/blog/product-images-for-ecommerce-sitse-3.jpg",
   },
-
   {
-    id: 3,
+    id: "65f0a1b2c3d4e5f678901236",
     name: "Mix Headphones",
     price: 39,
     stock: 20,
@@ -93,7 +93,7 @@ const products = [
       "https://cdn-bjpdk.nitrocdn.com/dyjDRTumiVVFLKEpXMADzKdEUUbypNrL/assets/images/optimized/rev-f4048d6/www.visualeducation.com/wp-content/uploads/2020/05/Beats_headphones-2-1558px.jpg",
   },
   {
-    id: 3,
+    id: "65f0a1b2c3d4e5f678901237",
     name: "iPhone 16 e",
     price: 499,
     stock: 20,
@@ -101,7 +101,7 @@ const products = [
       "https://www.apple.com/newsroom/images/2025/02/apple-debuts-iphone-16e-a-powerful-new-member-of-the-iphone-16-family/article/Apple-iPhone-16e-front-and-back-250219_inline.jpg.large.jpg",
   },
   {
-    id: 3,
+    id: "65f0a1b2c3d4e5f678901238",
     name: "Gaming Mouse",
     price: 39,
     stock: 20,
@@ -109,7 +109,7 @@ const products = [
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
   },
   {
-    id: 3,
+    id: "65f0a1b2c3d4e5f678901239",
     name: "Gaming Mouse",
     price: 39,
     stock: 20,
@@ -117,7 +117,7 @@ const products = [
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
   },
   {
-    id: 3,
+    id: "65f0a1b2c3d4e5f67890123a",
     name: "Gaming Mouse",
     price: 39,
     stock: 20,
@@ -125,15 +125,7 @@ const products = [
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
   },
   {
-    id: 3,
-    name: "Gaming Mouse",
-    price: 39,
-    stock: 20,
-    photo:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-  },
-  {
-    id: 3,
+    id: "65f0a1b2c3d4e5f67890123b",
     name: "Gaming Mouse",
     price: 39,
     stock: 20,
@@ -141,6 +133,7 @@ const products = [
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
   },
 ];
+
 const HomeComponent = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(
@@ -167,60 +160,68 @@ const HomeComponent = () => {
   if (isError) toast.error("Cannot fetch products");
   return (
     <>
-      <Title level={4} style={{ marginBlock: "12px" }}>
-        Latest Products
-      </Title>
-      <Divider
+      <Content
         style={{
-          marginBottom: "24px",
-          marginTop: "0px",
-        }}
-      />
-      <Row
-        gutter={[
-          { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
-          { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
-        ]}>
-        {products.slice(0, 5).map((product) => (
-          <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
-            <ProductCard
-              name={product.name}
-              price={product.price}
-              photo={product.photo}
-              productId={product.id.toString()}
-              handler={addToCartHandler}
-              stock={product.stock}
-            />
-          </Col>
-        ))}
-      </Row>
-      <Title level={4} style={{ marginBlock: "12px" }}>
-        Most Popular
-      </Title>
-      <Divider
-        style={{
-          marginBottom: "24px",
-          marginTop: "0px",
-        }}
-      />
-      <Row
-        gutter={[
-          { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
-          { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
-        ]}>
-        {products.slice(5).map((product) => (
-          <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
-            <ProductCard
-              name={product.name}
-              price={product.price}
-              photo={product.photo}
-              productId={product.id.toString()}
-              handler={addToCartHandler}
-              stock={product.stock}
-            />
-          </Col>
-        ))}
-      </Row>
+          width: "87%",
+          marginInline: "auto",
+          height: "fit-content",
+          paddingTop: "80px",
+        }}>
+        <Title level={4} style={{ marginBlock: "12px" }}>
+          Latest Products
+        </Title>
+        <Divider
+          style={{
+            marginBottom: "24px",
+            marginTop: "0px",
+          }}
+        />
+        <Row
+          gutter={[
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+          ]}>
+          {products.slice(0, 5).map((product) => (
+            <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                photo={product.photo}
+                productId={product.id.toString()}
+                handler={addToCartHandler}
+                stock={product.stock}
+              />
+            </Col>
+          ))}
+        </Row>
+        <Title level={4} style={{ marginBlock: "12px" }}>
+          Most Popular
+        </Title>
+        <Divider
+          style={{
+            marginBottom: "24px",
+            marginTop: "0px",
+          }}
+        />
+        <Row
+          gutter={[
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+          ]}>
+          {products.slice(5).map((product) => (
+            <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                photo={product.photo}
+                productId={product.id.toString()}
+                handler={addToCartHandler}
+                stock={product.stock}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Content>
     </>
   );
 };

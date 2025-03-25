@@ -40,8 +40,45 @@ const getRandomRating = (): number => {
 
 const { useBreakpoint } = Grid;
 
+const PriceComponent = ({ price }: { price: number }) => {
+  const screens = useBreakpoint();
+  const [priceObject] = useState(generateDiscountedPrice(price));
+  return (
+    <>
+      <Flex gap="small" align="center" wrap="wrap">
+        <Text
+          delete
+          strong
+          type="secondary"
+          style={{
+            fontSize: screens.xs ? "0.9rem" : "1.1em",
+          }}>
+          ${priceObject.strikeThroughPrice}
+        </Text>
+        <Text
+          type="secondary"
+          style={{
+            backgroundColor: "rgba(173, 216, 230, 0.3)",
+            padding: "0em 0.5em",
+            fontSize: screens.xs ? "0.55rem" : "0.6rem",
+            borderRadius: "0.25em",
+            fontWeight: "500",
+            display: "inline-block",
+            alignSelf: "center",
+          }}>
+          -{priceObject.discountPercentage}%
+        </Text>
+      </Flex>
+      <Title
+        level={5}
+        style={{ margin: "0px", fontSize: screens.xs ? "1rem" : "1.2rem" }}>
+        ${priceObject.realPrice}
+      </Title>
+    </>
+  );
+};
+
 const DescriptionComponent = ({ price, handler }: DescriptionProps) => {
-  const priceObject = generateDiscountedPrice(price);
   const screens = useBreakpoint();
 
   return (
@@ -54,63 +91,39 @@ const DescriptionComponent = ({ price, handler }: DescriptionProps) => {
         alignItems: screens.xs ? "flex-start" : "center",
       }}>
       <Flex vertical gap={4}>
-        <Flex gap="small" align="center" wrap="wrap">
-          <Text
-            delete
-            strong
-            type="secondary"
-            style={{
-              fontSize: screens.xs ? "0.9rem" : "1.1em",
-            }}>
-            ${priceObject.strikeThroughPrice}
-          </Text>
-          <Text
-            type="secondary"
-            style={{
-              backgroundColor: "rgba(173, 216, 230, 0.3)",
-              padding: "0em 0.5em",
-              fontSize: screens.xs ? "0.55rem" : "0.6rem",
-              borderRadius: "0.25em",
-              fontWeight: "500",
-              display: "inline-block",
-              alignSelf: "center",
-            }}>
-            -{priceObject.discountPercentage}%
-          </Text>
-        </Flex>
-        <Title
-          level={5}
-          style={{ margin: "0px", fontSize: screens.xs ? "1rem" : "1.2rem" }}>
-          ${priceObject.realPrice}
-        </Title>
+        <PriceComponent price={price} />
       </Flex>
-      <Button
-        onClick={() => {
-          handler();
-        }}
-        type="primary"
-        icon={<FiShoppingCart size={screens.xs ? 16 : 18} />}
-        aria-label="Add to Cart"
-        style={{
-          padding: screens.xs ? "0.8em 1em" : "1.2em 1.4em",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minWidth: screens.xs ? "40px" : "auto",
-        }}
-      />
+      <ButtonComponent handler={handler} />
     </Flex>
   );
 };
 
-const TitleComponent = ({
-  title,
-  rating,
-}: {
-  title: string;
-  rating: number;
-}) => {
+const ButtonComponent = ({ handler }: { handler: () => void }) => {
   const screens = useBreakpoint();
+  return (
+    <Button
+      onClick={() => {
+        handler();
+      }}
+      type="primary"
+      icon={<FiShoppingCart size={screens.xs ? 16 : 18} />}
+      aria-label="Add to Cart"
+      style={{
+        padding: screens.xs ? "0.8em 1em" : "1.2em 1.4em",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minWidth: screens.xs ? "40px" : "auto",
+      }}
+    />
+  );
+};
+const TitleComponent = ({ title }: { title: string }) => {
+  const screens = useBreakpoint();
+  const [ratingValue, setRatingValue] = useState<number>(0);
+  useEffect(() => {
+    setRatingValue(getRandomRating());
+  }, []);
 
   return (
     <>
@@ -121,7 +134,7 @@ const TitleComponent = ({
         {title}
       </Title>
       <Rate
-        value={rating}
+        value={ratingValue}
         allowHalf
         disabled
         character={<FaStar />}
@@ -142,12 +155,8 @@ const ProductCard = ({
   photo,
   stock,
 }: ProductsProps) => {
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  const [loading, setLoading] = useState(false);
+
   const { cartItems } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
   );
@@ -182,7 +191,7 @@ const ProductCard = ({
           />
         }>
         <Meta
-          title={<TitleComponent title={name} rating={getRandomRating()} />}
+          title={<TitleComponent title={name} />}
           description={
             <DescriptionComponent
               price={price}
