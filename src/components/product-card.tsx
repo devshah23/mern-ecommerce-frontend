@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Grid } from "antd";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
-const server = import.meta.env.VITE_SERVER;
+// const server = import.meta.env.VITE_SERVER;
 const { Meta } = Card;
 const { Title, Text } = Typography;
 type ProductsProps = {
@@ -156,7 +156,8 @@ const ProductCard = ({
   photo,
   stock,
 }: ProductsProps) => {
-  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, _setLoading] = useState(false);
 
   const { cartItems } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer

@@ -182,9 +182,7 @@ const App = () => {
     });
   }, [dispatch]);
 
-  const { user, loading } = useSelector(
-    (state: RootState) => state.userReducer
-  );
+  const { user } = useSelector((state: RootState) => state.userReducer);
 
   //return  loading ? (
   //   <Loader />

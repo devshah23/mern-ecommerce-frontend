@@ -9,7 +9,7 @@ import {
   useOrderDetailsQuery,
   useUpdateOrderMutation,
 } from "../../../redux/api/orderAPI";
-import { server } from "../../../redux/store";
+// import { server } from "../../../redux/store";
 import { userReducerInitialState } from "../../../types/reducer-types";
 import { Order, OrderItem } from "../../../types/types";
 import { responseToast } from "../../../utils/features";
