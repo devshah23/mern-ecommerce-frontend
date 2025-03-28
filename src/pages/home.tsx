@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom";
+import { Col, Divider, Row, Typography } from "antd";
 import ProductCard from "../components/product-card";
-import { useLatestProductsQuery } from "../redux/api/productAPI";
-import toast from "react-hot-toast";
-import { Skeleton } from "../components/loader";
-import { CartItem } from "../types/types";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/reducer/cartReducer";
 import { CartReducerInitialState } from "../types/reducer-types";
+import { CartItem } from "../types/types";
+import toast from "react-hot-toast";
+import { addToCart } from "../redux/reducer/cartReducer";
+import { useLatestProductsQuery } from "../redux/api/productAPI";
+import { Content } from "antd/es/layout/layout";
 
-const Home = () => {
+const { Title } = Typography;
+
+const HomeComponent = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
@@ -30,38 +32,74 @@ const Home = () => {
       toast.success("Quantity Updated in cart");
     }
   };
-  const { data, isLoading, isError } = useLatestProductsQuery("");
+  const { data, isError } = useLatestProductsQuery("");
   if (isError) toast.error("Cannot fetch products");
   return (
-    <div className="home">
-      <section></section>
-      <h1>
-        Latest Products
-        <Link to="/search" className="findmore">
-          More
-        </Link>
-      </h1>
-      <main>
-        {isLoading ? (
-          <Skeleton width="80vw" />
-        ) : (
-          data?.products.map((product) => {
-            return (
+    <>
+      <Content
+        style={{
+          width: "87%",
+          marginInline: "auto",
+          height: "fit-content",
+          paddingTop: "80px",
+        }}>
+        <Title level={4} style={{ marginBlock: "12px" }}>
+          Latest Products
+        </Title>
+        <Divider
+          style={{
+            marginBottom: "24px",
+            marginTop: "0px",
+          }}
+        />
+        <Row
+          gutter={[
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+          ]}>
+          {data?.products.map((product) => (
+            <Col key={product._id} xs={12} sm={8} md={6} lg={6} xl={4}>
               <ProductCard
-                key={product._id}
-                productId={product._id}
                 name={product.name}
-                photo={product.photo}
-                stock={product.stock}
                 price={product.price}
+                photo={product.photo}
+                productId={product._id.toString()}
                 handler={addToCartHandler}
+                stock={product.stock}
               />
-            );
-          })
-        )}
-      </main>
-    </div>
+            </Col>
+          ))}
+        </Row>
+        <Title level={4} style={{ marginBlock: "12px" }}>
+          Most Popular
+        </Title>
+        <Divider
+          style={{
+            marginBottom: "24px",
+            marginTop: "0px",
+          }}
+        />
+        <Row
+          gutter={[
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+            { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
+          ]}>
+          {data?.products.slice(0, 3).map((product) => (
+            <Col key={product._id} xs={12} sm={8} md={6} lg={6} xl={4}>
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                photo={product.photo}
+                productId={product._id.toString()}
+                handler={addToCartHandler}
+                stock={product.stock}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Content>
+    </>
   );
 };
 
-export default Home;
+export default HomeComponent;
