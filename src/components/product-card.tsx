@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Grid } from "antd";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
+const server = import.meta.env.VITE_SERVER;
 const { Meta } = Card;
 const { Title, Text } = Typography;
 type ProductsProps = {
@@ -179,7 +180,7 @@ const ProductCard = ({
         cover={
           <Image
             alt={name}
-            src={photo}
+            src={`${photo}`}
             preview={false}
             style={{
               height: "200px",

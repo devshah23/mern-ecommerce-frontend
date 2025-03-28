@@ -61,7 +61,7 @@ const AdminSidebar = () => {
         <h2>ZenithStore</h2>
         <DivOne location={location} />
         <DivTwo location={location} />
-        <DivThree location={location} />
+        {/* <DivThree location={location} /> */}
 
         {phoneActive && (
           <button id="close-sidebar" onClick={() => setShowModal(false)}>

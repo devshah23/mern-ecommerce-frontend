@@ -137,7 +137,6 @@ import NotFound from "./pages/not-found";
 import { RootState } from "./redux/store";
 import { Layout } from "antd";
 import Navbar from "./components/navbar";
-import { Content } from "antd/es/layout/layout";
 
 // Lazy-loaded pages
 const Checkout = lazy(() => import("./pages/checkout"));
@@ -187,9 +186,11 @@ const App = () => {
     (state: RootState) => state.userReducer
   );
 
-  return loading ? (
-    <Loader />
-  ) : (
+  //return  loading ? (
+  //   <Loader />
+  // ) :
+
+  return (
     <Router>
       <Navbar user={user} />
       <Layout style={{ height: "100vh", gap: "2rem" }}>

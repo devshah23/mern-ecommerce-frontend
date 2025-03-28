@@ -86,7 +86,7 @@ const TransactionManagement = () => {
                 <ProductCard
                   key={i._id}
                   name={i.name}
-                  photo={`${server}/${i.photo}`}
+                  photo={`${i.photo}`}
                   productId={i.productId}
                   _id={i._id}
                   quantity={i.quantity}

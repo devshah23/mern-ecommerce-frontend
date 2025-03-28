@@ -181,13 +181,13 @@ const HomeComponent = () => {
             { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
             { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
           ]}>
-          {products.slice(0, 5).map((product) => (
-            <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
+          {data?.products.map((product) => (
+            <Col key={product._id} xs={12} sm={8} md={6} lg={6} xl={4}>
               <ProductCard
                 name={product.name}
                 price={product.price}
                 photo={product.photo}
-                productId={product.id.toString()}
+                productId={product._id.toString()}
                 handler={addToCartHandler}
                 stock={product.stock}
               />
@@ -208,13 +208,13 @@ const HomeComponent = () => {
             { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
             { xs: 8, sm: 12, md: 16, lg: 18, xl: 18 },
           ]}>
-          {products.slice(5).map((product) => (
-            <Col key={product.id} xs={12} sm={8} md={6} lg={6} xl={4}>
+          {data?.products.slice(0, 3).map((product) => (
+            <Col key={product._id} xs={12} sm={8} md={6} lg={6} xl={4}>
               <ProductCard
                 name={product.name}
                 price={product.price}
                 photo={product.photo}
-                productId={product.id.toString()}
+                productId={product._id.toString()}
                 handler={addToCartHandler}
                 stock={product.stock}
               />

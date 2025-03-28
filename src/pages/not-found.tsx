@@ -1,10 +1,16 @@
-import { MdError } from "react-icons/md";
+import { Flex, Typography } from "antd";
+const { Title } = Typography;
 const NotFound = () => {
   return (
-    <div className="container not-found">
-      <MdError />
-      <h1>Page Not Found</h1>
-    </div>
+    <Flex
+      style={{
+        height: "100%",
+        paddingTop: "80px",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <Title level={2}>Page Not Found</Title>
+    </Flex>
   );
 };
 
