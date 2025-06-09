@@ -1,5 +1,4 @@
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { CartItem as CartItemTypes } from "../types/types";
 import { Button, Card, Col, Flex, Grid, Image, Row, Typography } from "antd";
 // import { server } from "../redux/store";
