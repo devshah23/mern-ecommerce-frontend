@@ -27,6 +27,9 @@ const CheckoutForm = () => {
     total,
   } = useSelector((state: RootState) => state.cartReducer);
   const [newOrder] = useNewOrderMutation();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const stripe = useStripe();
+  const elements = useElements();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,15 +60,12 @@ const CheckoutForm = () => {
     if (paymentIntent.status === "succeeded") {
       const res = await newOrder(orderData);
       dispatch(resetCart());
-      console.log("success");
       responseToast(res, navigate, "/orders");
       navigate("/orders");
     }
     setIsProcessing(false);
   };
-  const [isProcessing, setIsProcessing] = useState(false);
-  const stripe = useStripe();
-  const elements = useElements();
+
   return (
     <div className="checkout-container">
       <form onSubmit={submitHandler}>

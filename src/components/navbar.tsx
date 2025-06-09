@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Layout,
@@ -31,13 +31,6 @@ interface PropsType {
 
 const { Title } = Typography;
 const Navbar = ({ user }: PropsType) => {
-  //Use effect to delay by one second
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("Loading");
-    }, 1000);
-  }, []);
-
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
 

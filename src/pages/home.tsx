@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartReducerInitialState } from "../types/reducer-types";
 import { CartItem } from "../types/types";
 import toast from "react-hot-toast";
-import { addToCart } from "../redux/reducer/cartReducer";
+import { modifyCart } from "../redux/reducer/cartReducer";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
 import { Content } from "antd/es/layout/layout";
 
@@ -15,20 +15,20 @@ const HomeComponent = () => {
   const { cartItems } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
   );
-  const addToCartHandler = (cartItem: CartItem) => {
+  const modifyCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
     const idx = cartItems.findIndex(
       (item) => item.productId === cartItem.productId
     );
     if (idx === -1) {
-      dispatch(addToCart(cartItem));
+      dispatch(modifyCart(cartItem));
       toast.success("Added to cart");
     } else {
       if (cartItems[idx].stock < cartItem.quantity) {
         toast.error("You can't add more than available stock");
         return;
       }
-      dispatch(addToCart(cartItem));
+      dispatch(modifyCart(cartItem));
       toast.success("Quantity Updated in cart");
     }
   };
@@ -64,7 +64,7 @@ const HomeComponent = () => {
                 price={product.price}
                 photo={product.photo}
                 productId={product._id.toString()}
-                handler={addToCartHandler}
+                handler={modifyCartHandler}
                 stock={product.stock}
               />
             </Col>
@@ -91,7 +91,7 @@ const HomeComponent = () => {
                 price={product.price}
                 photo={product.photo}
                 productId={product._id.toString()}
-                handler={addToCartHandler}
+                handler={modifyCartHandler}
                 stock={product.stock}
               />
             </Col>

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import CartItemCard from "../components/cart-item";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CartReducerInitialState } from "../types/reducer-types";
 import { CartItem } from "../types/types";
 import toast from "react-hot-toast";
 import {
-  addToCart,
+  modifyCart,
   calculatePrice,
   discountApplied,
   removeCartItem,
@@ -39,8 +39,7 @@ const Cart = () => {
       toast.error("You can't add more than available stock");
       return;
     }
-    console.log("Called incrementHandler");
-    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+    dispatch(modifyCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
   };
   const decrementHandler = (cartItem: CartItem) => {
     if (cartItem.quantity <= 1) {
@@ -48,7 +47,7 @@ const Cart = () => {
       return;
     }
 
-    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+    dispatch(modifyCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
   };
   const removeHandler = (productId: string) => {
     dispatch(removeCartItem(productId));
@@ -92,79 +91,6 @@ const Cart = () => {
 
   return (
     <>
-      {/* <Layout
-        style={{
-          height: "100%",
-          display: "flex",
-          flexDirection: screens.md ? "row" : "column", // Row on medium & large screens, column on small screens
-          gap: "1rem",
-          padding: "1rem",
-        }}>
-        <Content
-          style={{
-            // width: "70%",
-            // marginInline: "auto",
-
-            height: "100%",
-            paddingTop: "80px",
-          }}>
-          <Space
-            direction="vertical"
-            size="large"
-            style={{ width: "100%", height: "100%" }}>
-            {cartItems.length > 0 ? (
-              cartItems.map((i, idx) => (
-                <CartItemCard
-                  key={idx}
-                  cartItem={i}
-                  incrementHandler={incrementHandler}
-                  decrementHandler={decrementHandler}
-                  removeHandler={removeHandler}
-                />
-              ))
-            ) : (
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}>
-                <Title level={3}>No Item in the cart</Title>
-              </div>
-            )}
-          </Space>
-        </Content>
-        <Sider style={{ height: "100%", paddingTop: "80px" }}>
-          <p>Subtotal: ₹{subtotal}</p>
-          <p>Shipping Charges: ₹{shippingCharges}</p>
-          <p>Tax: ₹{tax}</p>
-          <p>
-            Discount: <em className="red"> - ₹{discount}</em>
-          </p>
-          <p>
-            <b>Total: ₹{total}</b>
-          </p>
-          <input
-            type="text"
-            placeholder="Coupon Code"
-            value={couponCode}
-            onChange={(e) => setCouponCode(e.target.value)}
-          />
-          {couponCode &&
-            (isValidCouponCode ? (
-              <span className="green">
-                ₹{discount} off using the <code>{couponCode}</code>
-              </span>
-            ) : (
-              <span className="red">
-                Invalid Coupon <VscError />
-              </span>
-            ))}
-          {cartItems.length > 0 && user && <Link to="/shipping">Checkout</Link>}
-        </Sider>
-      </Layout> */}
       <Flex
         gap="middle"
         style={{
@@ -200,7 +126,6 @@ const Cart = () => {
           <Card
             style={{
               paddingTop: "40px",
-              // height: screens.md ? "100" : "",
               height: "fit-content",
               minWidth: screens.lg ? "25%" : "35%",
             }}>
@@ -283,7 +208,7 @@ const Cart = () => {
                   level={5}
                   type="warning"
                   style={{ textAlign: "center", paddingTop: "40px" }}>
-                  Please Login to Checkout
+                  <Link to="/login">Please Login to Checkout</Link>
                 </Title>
               )}
             </Space>

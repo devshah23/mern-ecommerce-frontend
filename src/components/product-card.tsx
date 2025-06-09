@@ -115,8 +115,10 @@ const ButtonComponent = ({ handler }: { handler: () => void }) => {
         alignItems: "center",
         justifyContent: "center",
         minWidth: screens.xs ? "40px" : "auto",
-      }}
-    />
+        width: screens.xs ? "100%" : "",
+      }}>
+      {screens.xs && "Buy"}
+    </Button>
   );
 };
 const TitleComponent = ({ title }: { title: string }) => {
@@ -156,8 +158,7 @@ const ProductCard = ({
   photo,
   stock,
 }: ProductsProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, _setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const { cartItems } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
