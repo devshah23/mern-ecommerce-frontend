@@ -4,8 +4,6 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { NavigateFunction } from "react-router-dom";
 import toast from "react-hot-toast";
 import moment from "moment";
-// import moment from "moment";
-
 type ResType =
   | {
       data: MessageResponse;
@@ -23,7 +21,6 @@ export const responseToast = (
     toast.success(res.data.message);
     if (navigate) navigate(url);
   } else {
-    console.log("Iam called");
     const error = res.error as FetchBaseQueryError;
     const messageResponse = error.data as MessageResponse;
     toast.error(messageResponse.message);

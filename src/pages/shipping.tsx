@@ -29,30 +29,7 @@ const Shipping = () => {
   const { cartItems, total } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
   );
-  // const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
-  //   console.log("Called");
-  //   e.preventDefault();
-  //   dispatch(saveShippingInfo(shippingInfo));
-  //   try {
-  //     const { data } = await axios.post(
-  //       `${server}/api/v1/payment/create`,
-  //       { amount: total },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     navigate("/pay", {
-  //       state: data.clientSecret,
-  //     });
-  //   } catch (error) {
-  //     toast.error("Something went wrong");
-  //   }
-  // };
   const submitHandler = async (values: typeof shippingInfo) => {
-    console.log("Called", values);
-
     dispatch(saveShippingInfo(values));
 
     try {
@@ -94,58 +71,6 @@ const Shipping = () => {
     }
   }, [cartItems]);
   return (
-    // <div className="shipping">
-    //   <button className="back-btn" onClick={() => navigate("/cart")}>
-    //     <BiArrowBack />
-    //   </button>
-
-    //   <form onSubmit={submitHandler}>
-    //     <h1>Shipping Address</h1>
-    //     <input
-    //       type="text"
-    //       required
-    //       placeholder="Address"
-    //       name="address"
-    //       value={shippingInfo.address}
-    //       onChange={changeHandler}
-    //     />
-    //     <input
-    //       type="text"
-    //       required
-    //       placeholder="City"
-    //       name="city"
-    //       value={shippingInfo.city}
-    //       onChange={changeHandler}
-    //     />
-    //     <input
-    //       type="text"
-    //       required
-    //       placeholder="State"
-    //       name="state"
-    //       value={shippingInfo.state}
-    //       onChange={changeHandler}
-    //     />
-    //     <input
-    //       type="number"
-    //       required
-    //       placeholder="PinCode"
-    //       name="pinCode"
-    //       value={shippingInfo.pinCode}
-    //       onChange={changeHandler}
-    //     />
-    //     <select
-    //       name="country"
-    //       required
-    //       value={shippingInfo.country}
-    //       onChange={changeHandler}
-    //       id="">
-    //       <option value="">Choose Country</option>
-    //       <option value="india">India</option>
-    //       <option value="usa">United States</option>
-    //     </select>
-    //     <button type="submit">Pay Now</button>
-    //   </form>
-    // </div>
     <>
       <Content
         style={{
@@ -178,24 +103,6 @@ const Shipping = () => {
             </Flex>
           </Title>
           <Divider />
-          {/* <Form
-            layout="vertical"
-            style={{
-              alignSelf: "center",
-            }}>
-            <Form.Item label="Address">
-              <Input placeholder="Address" />
-            </Form.Item>
-            <Form.Item label="City">
-              <Input placeholder="City" />
-            </Form.Item>
-            <Form.Item label="State">
-              <Input placeholder="State" />
-            </Form.Item>
-            <Form.Item label="Country">
-              <Input placeholder="Country" />
-            </Form.Item>
-          </Form> */}
           <Form
             layout="vertical"
             onFinish={submitHandler}

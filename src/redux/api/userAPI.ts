@@ -8,7 +8,6 @@ import {
 } from "../../types/api-types";
 import { User } from "../../types/types";
 import axios from "axios";
-//WSe3iJCIENcc6AU3AUDdaS0Gszm2
 
 export const userAPI = createApi({
   reducerPath: "userAPI",

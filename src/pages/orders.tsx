@@ -15,7 +15,7 @@ type DataType = {
   quantity: number;
   discount: number;
   status: ReactElement;
-  action: ReactElement;
+  action: ReactElement | string;
 };
 const column: Column<DataType>[] = [
   {
@@ -71,7 +71,12 @@ const Orders = () => {
               {i.status}
             </span>
           ),
-          action: <Link to={`/admin/transaction/${i._id}`}>Manage</Link>,
+          action:
+            user?.role === "admin" ? (
+              <Link to={`/admin/transaction/${i._id}`}>Manage</Link>
+            ) : (
+              ""
+            ),
         }))
       );
     }

@@ -9,7 +9,7 @@ import {
 import { CartReducerInitialState } from "../types/reducer-types";
 import { useDispatch, useSelector } from "react-redux";
 import { CartItem } from "../types/types";
-import { addToCart } from "../redux/reducer/cartReducer";
+import { modifyCart } from "../redux/reducer/cartReducer";
 import {
   Card,
   Col,
@@ -43,20 +43,20 @@ const Search = () => {
   const { cartItems } = useSelector(
     (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
   );
-  const addToCartHandler = (cartItem: CartItem) => {
+  const modifyCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
     const idx = cartItems.findIndex(
       (item) => item.productId === cartItem.productId
     );
     if (idx === -1) {
-      dispatch(addToCart(cartItem));
+      dispatch(modifyCart(cartItem));
       toast.success("Added to cart");
     } else {
       if (cartItems[idx].stock < cartItem.quantity) {
         toast.error("You can't add more than available stock");
         return;
       }
-      dispatch(addToCart(cartItem));
+      dispatch(modifyCart(cartItem));
       toast.success("Quantity Updated in cart");
     }
   };
@@ -156,7 +156,7 @@ const Search = () => {
                   price={i.price}
                   name={i.name}
                   stock={i.stock}
-                  handler={addToCartHandler}
+                  handler={modifyCartHandler}
                   photo={i.photo}
                 />
               </Col>

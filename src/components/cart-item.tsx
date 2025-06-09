@@ -1,8 +1,7 @@
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-// import { server } from "../redux/store";
 import { CartItem as CartItemTypes } from "../types/types";
 import { Button, Card, Col, Flex, Grid, Image, Row, Typography } from "antd";
+// import { server } from "../redux/store";
 
 const { Title, Text } = Typography;
 
@@ -24,21 +23,6 @@ const CartItem = ({
   const { photo, productId, price, quantity, name } = cartItem;
   const screens = useBreakpoint();
   return (
-    // <div className="cart-item">
-    //   <img src={`${server}/${photo}`} alt={name} />
-    //   <article>
-    //     <Link to={`/product/${productId}`}>{name}</Link>
-    //     <span>₹{price}</span>
-    //   </article>
-    //   <div>
-    //     <button onClick={() => decrementHandler(cartItem)}>-</button>
-    //     <p>{quantity}</p>
-    //     <button onClick={() => incrementHandler(cartItem)}>+</button>
-    //   </div>
-    //   <button onClick={() => removeHandler(productId)}>
-    //     <FaTrash />
-    //   </button>
-    // </div>
     <>
       <Card style={{ margin: "1em" }}>
         <Row
@@ -81,7 +65,7 @@ const CartItem = ({
                 gap: screens.xs ? "12px" : "0px",
               }}>
               <Title level={3} style={{ margin: 0 }}>
-                <Link to={`/product/${productId}`}>{name}</Link>
+                {name}
               </Title>
               <div>
                 <Title level={5} type="secondary" style={{ margin: 0 }}>
@@ -129,13 +113,13 @@ const CartItem = ({
                       onClick={() => decrementHandler(cartItem)}
                       icon={<FaMinus />}
                       style={{
-                        backgroundColor: "#1677ff", // Primary Blue
-                        color: "#fff", // White text
+                        backgroundColor: "#1677ff",
+                        color: "#fff",
                         border: "1px solid #1677ff",
-                        borderRadius: "8px", // Rounded corners
+                        borderRadius: "8px",
                         transition: "all 0.3s ease",
                         fontWeight: "bold",
-                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)", // Soft shadow
+                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
                       }}
                       onMouseEnter={(e) =>
                         (e.currentTarget.style.backgroundColor = "#125bcc")
@@ -166,7 +150,7 @@ const CartItem = ({
                         borderRadius: "8px",
                         transition: "all 0.3s ease",
                         fontWeight: "bold",
-                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)", // Soft shadow
+                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
                       }}
                       onMouseEnter={(e) =>
                         (e.currentTarget.style.backgroundColor = "#125bcc")
